@@ -1,5 +1,5 @@
 # gormid
-Use GORM (Go Object Relational Mapping) to store OpenID DiscoveryCache / Nonce in a database instead of in memory
+Use [GORM](https://github.com/jinzhu/gorm) (Go Object Relational Mapping) to store OpenID DiscoveryCache / Nonce in a database instead of in memory
 
 # Installation
 `go get github.com/Gacnt/gormid`
