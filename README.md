@@ -6,13 +6,14 @@ Use [GORM](https://github.com/jinzhu/gorm) (Go Object Relational Mapping) to sto
 
 
 # Usage
----
 NOTE: IF USING MYSQL
 
 In order to handle `time.Time`, you need to include parseTime as a parameter. (THIS MUST BE IMPLEMENTED OR PACKAGE WILL PANIC) 
 
 e.g. `db, err := gorm.Open("mysql", "user:password@/dbname?charset=utf8&parseTime=True&loc=Local")`
----
+
+
+
 ```
 import "github.com/Gacnt/gormid"
 
