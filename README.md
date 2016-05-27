@@ -29,6 +29,11 @@ func AuthCallback(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Docs:
-
+#Docs:
 https://godoc.org/github.com/Gacnt/gormid
+
+#Testing
+Tests are copied from [openid-go](https://github.com/yohcop/openid-go) and as of now they both pass just fine.
+`go test` 
+
+
