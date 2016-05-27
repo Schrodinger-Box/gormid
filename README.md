@@ -8,7 +8,11 @@ Use GORM (Go Object Relational Mapping) to store OpenID DiscoveryCache / Nonce i
 ```
 import "github.com/Gacnt/gormid"
 
-var gormStore = gormid.CreateNewStore(db) // Pass in your *gorm.DB and then access the DiscoveryCache and NonceStore fields of the struct returned e.g.
+/* Pass in your *gorm.DB and then access the DiscoveryCache and NonceStore 
+fields of the struct returned e.g. as well, this will create the required tables in
+your database so you don't need to worry about that
+*/
+var gormStore = gormid.CreateNewStore(db) 
 
 func AuthCallback(w http.ResponseWriter, r *http.Request) {
 	fullURL := "http://localhost:3000" + r.URL.String()
