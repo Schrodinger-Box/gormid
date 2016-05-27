@@ -5,6 +5,10 @@ Use [GORM](https://github.com/jinzhu/gorm) (Go Object Relational Mapping) to sto
 `go get github.com/Gacnt/gormid`
 
 # Usage
+NOTE: IF USING MYSQL
+In order to handle time.Time, you need to include parseTime as a parameter. (THIS MUST BE IMPLEMENTED OR PACKAGE WILL PANIC) 
+e.g. `db, err := gorm.Open("mysql", "user:password@/dbname?charset=utf8&parseTime=True&loc=Local")`
+
 ```
 import "github.com/Gacnt/gormid"
 
@@ -35,5 +39,6 @@ https://godoc.org/github.com/Gacnt/gormid
 #Testing
 Tests are copied from [openid-go](https://github.com/yohcop/openid-go) and as of now they both pass just fine.
 `go test` 
+They are currently set to run with `postgres` and a default user of `postgres` and on database `pugit` feel free to modify the test files DB to run tests to your liking
 
 
