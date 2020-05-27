@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Gacnt/gormid/models"
+	"github.com/Schrodinger-Box/gormid/models"
 	"github.com/jinzhu/gorm"
 )
 
