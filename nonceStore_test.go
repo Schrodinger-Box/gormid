@@ -5,11 +5,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jinzhu/gorm"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 func TestDefaultNonceStore(t *testing.T) {
-	db, err := gorm.Open("postgres", "host=localhost user=postgres dbname=pugit sslmode=disable")
+	db, err := gorm.Open(postgres.Open("host=localhost user=postgres dbname=pugit sslmode=disable"), &gorm.Config{})
 	if err != nil {
 		log.Println(err)
 	}

@@ -3,9 +3,10 @@ package gormid
 import (
 	"log"
 
-	"github.com/Schrodinger-Box/gormid/models"
-	"github.com/jinzhu/gorm"
 	"github.com/Schrodinger-Box/openid-go"
+	"gorm.io/gorm"
+
+	"github.com/Schrodinger-Box/gormid/models"
 )
 
 type discoveryCache struct {

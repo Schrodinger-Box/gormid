@@ -3,8 +3,9 @@ package gormid
 import (
 	"sync"
 
+	"gorm.io/gorm"
+
 	"github.com/Schrodinger-Box/gormid/models"
-	"github.com/jinzhu/gorm"
 )
 
 type gormStore struct {

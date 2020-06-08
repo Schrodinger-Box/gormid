@@ -1,5 +1,5 @@
 # gormid
-Use [GORM](https://github.com/jinzhu/gorm) (Go Object Relational Mapping) to store OpenID DiscoveryCache / Nonce in a database instead of in memory
+Use [GORM](https://github.com/go-gorm/gorm) (Go Object Relational Mapping) to store OpenID DiscoveryCache / Nonce in a database instead of in memory
 
 This is a fork of the original gormid which uses openid-go modified by Schrodinger-Box as dependency. This fork adds go module support as well.
 

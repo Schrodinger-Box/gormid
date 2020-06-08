@@ -8,8 +8,9 @@ import (
 	"sync"
 	"time"
 
+	"gorm.io/gorm"
+
 	"github.com/Schrodinger-Box/gormid/models"
-	"github.com/jinzhu/gorm"
 )
 
 var maxNonceAge = flag.Duration("max-nonce-age",
