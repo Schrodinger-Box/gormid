@@ -5,6 +5,8 @@ This is a fork of the original gormid which uses openid-go modified by Schroding
 
 Other than that, there is no much difference from the original module.
 
+[![Build Status](https://travis-ci.com/Schrodinger-Box/gormid.svg?branch=master)](https://travis-ci.com/Schrodinger-Box/gormid)
+
 # Installation
 `go get github.com/Schrodinger-Box/gormid`
 

@@ -4,15 +4,16 @@ import (
 	"log"
 	"testing"
 
-	"gorm.io/driver/postgres"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
 func TestDiscoveryCache(t *testing.T) {
-	db, err := gorm.Open(postgres.Open("host=localhost user=postgres dbname=pugit sslmode=disable"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open("./test.db"), &gorm.Config{})
 	if err != nil {
 		log.Println(err)
 	}
+	db.Debug()
 
 	dc := CreateNewStore(db).DiscoveryCache
 

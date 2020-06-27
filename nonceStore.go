@@ -25,7 +25,7 @@ type nonceStore struct {
 
 func (d *nonceStore) Accept(endpoint, nonce string) error {
 	if len(nonce) < 20 || len(nonce) > 256 {
-		return errors.New("Invalid nonce")
+		return errors.New("invalid nonce")
 	}
 
 	ts, err := time.Parse(time.RFC3339, nonce[0:20])
@@ -36,35 +36,34 @@ func (d *nonceStore) Accept(endpoint, nonce string) error {
 	now := time.Now()
 	diff := now.Sub(ts)
 	if diff > *maxNonceAge {
-		return fmt.Errorf("Nonce too old: %ds", diff.Seconds())
+		return fmt.Errorf("nonce too old: %fs", diff.Seconds())
 	}
 
 	s := nonce[20:]
 
 	d.mu.Lock()
 	defer d.mu.Unlock()
-	nonces := []*models.Nonce{}
+	var nonces []*models.Nonce
 	if err := d.db.Where("endpoint = ?", endpoint).Find(&nonces).Error; err != nil {
 		return err
 	}
 
 	newNonces := []*models.Nonce{{ts, s, endpoint}}
 	if len(nonces) > 0 {
-		d.db.Delete(new(models.Nonce))
 		for _, n := range nonces {
 			if n.T.UTC() == ts && n.S == s {
-				return errors.New("Nonce already used")
+				return errors.New("nonce already used")
 			}
 			if now.Sub(n.T) < *maxNonceAge {
 				newNonces = append(newNonces, n)
 			}
 		}
 		if ok := storeNonces(d.db, newNonces); !ok {
-			return errors.New("Could not store nonces")
+			return errors.New("could not store nonces")
 		}
 	} else {
 		if ok := storeNonces(d.db, newNonces); !ok {
-			return errors.New("Could not store nonces")
+			return errors.New("could not store nonces")
 		}
 	}
 

@@ -5,15 +5,16 @@ import (
 	"testing"
 	"time"
 
-	"gorm.io/driver/postgres"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
 func TestDefaultNonceStore(t *testing.T) {
-	db, err := gorm.Open(postgres.Open("host=localhost user=postgres dbname=pugit sslmode=disable"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open("./test.db"), &gorm.Config{})
 	if err != nil {
 		log.Println(err)
 	}
+	db.Debug()
 	*maxNonceAge = 60 * time.Second
 	now := time.Now().UTC()
 	// 30 seconds ago
@@ -24,18 +25,18 @@ func TestDefaultNonceStore(t *testing.T) {
 	now30sStr := now30s.Format(time.RFC3339)
 	now2mStr := now2m.Format(time.RFC3339)
 
-	ns := CreateNewStore(db)
-	reject(t, ns.NonceStore, "1", "foo")                        // invalid nonce
-	reject(t, ns.NonceStore, "1", "fooBarBazLongerThan20Chars") // invalid nonce
+	ns := CreateNewStore(db).NonceStore
+	reject(t, ns, "1", "foo")                        // invalid nonce
+	reject(t, ns, "1", "fooBarBazLongerThan20Chars") // invalid nonce
 
-	accept(t, ns.NonceStore, "1", now30sStr+"asd")
-	reject(t, ns.NonceStore, "1", now30sStr+"asd") // same nonce
-	accept(t, ns.NonceStore, "1", now30sStr+"xxx") // different nonce
-	reject(t, ns.NonceStore, "1", now30sStr+"xxx") // different nonce again to verify storage of multiple nonces per endpoint
-	accept(t, ns.NonceStore, "2", now30sStr+"asd") // different endpoint
+	accept(t, ns, "1", now30sStr+"asd")
+	reject(t, ns, "1", now30sStr+"asd") // same nonce
+	accept(t, ns, "1", now30sStr+"xxx") // different nonce
+	reject(t, ns, "1", now30sStr+"xxx") // different nonce again to verify storage of multiple nonces per endpoint
+	accept(t, ns, "2", now30sStr+"asd") // different endpoint
 
-	reject(t, ns.NonceStore, "1", now2mStr+"old") // too old
-	reject(t, ns.NonceStore, "3", now2mStr+"old") // too old
+	reject(t, ns, "1", now2mStr+"old") // too old
+	reject(t, ns, "3", now2mStr+"old") // too old
 }
 
 func accept(t *testing.T, ns *nonceStore, op, nonce string) {
